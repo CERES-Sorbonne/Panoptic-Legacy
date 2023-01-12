@@ -1,25 +1,33 @@
+import json
 import os
 import pickle
-import math
 import random
 from operator import itemgetter
 
 import numpy as np
+# need to install tesseract with conda install -c conda-forge tesseract
+import pytesseract
 from sklearn.cluster import DBSCAN
 
-IMAGE_DIRECTORY = "D:\\Alie\\Documents\\CollectesTwitter\\AhashExps\\allGJ\\SteakAllPictures"
+# IMAGE_DIRECTORY = "D:\\Alie\\Documents\\CollectesTwitter\\AhashExps\\allGJ\\SteakAllPictures"
+IMAGE_DIRECTORY = "D:\\Alie\\Documents\\CollectesTwitter\\AhashExps\\grand_remplacement"
+MODELS_DIRECTORY = "D:\\Alie\\Documents\\Projets\\AnalysesImages\\outputs\\vectors"
 
-
-with open(r"D:\Alie\Documents\Projets\AnalysesImages/outputs/vectors/tree.pkl", "rb") as f:
+with open(os.path.join(MODELS_DIRECTORY, "tree.pkl"), "rb") as f:
     tree = pickle.load(f)
 
-with open(r"D:\Alie\Documents\Projets\AnalysesImages/outputs/vectors/dic_vec_pca10.pkl", "rb") as f:
+with open(os.path.join(MODELS_DIRECTORY, "dic_vec_pca_10.pkl"), "rb") as f:
     vector_dic = pickle.load(f)
 
-with open(r"D:\Alie\Documents\Projets\AnalysesImages/outputs/vectors/dic_ahashs.pkl", "rb") as f:
+with open(os.path.join(MODELS_DIRECTORY, "dic_ahashs.pkl"), "rb") as f:
     hash_dic = pickle.load(f)
 
+# with open(r"D:\Alie\Documents\Projets\AnalysesImages/outputs/vectors/dic_ocr.json", "r", encoding='utf-8') as f:
+#     dic_ocr = json.load(f)
+
 image_labels = list(vector_dic.keys())
+# ocr_data = {image: dic_ocr[hash_dic[image]] for image in image_labels}
+
 # TODO: update image_labels according to what's really in the directory
 
 vectors = list(vector_dic.values())
@@ -49,3 +57,10 @@ def make_clusters():
         ahash_clusters = itemgetter(*image_clusters)(hash_dic)
         res.append([{'name': '/static/' + image, 'dist': None} for _, image in sorted(zip(ahash_clusters, image_clusters))])
     return res
+
+
+# def get_ocr_data():
+#     return ocr_data
+
+
+

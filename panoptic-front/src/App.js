@@ -10,6 +10,7 @@ function App() {
   const [sensibility, setSensibility] = React.useState(2);
   const [selectedImage, setSelectedImage] = React.useState(-1)
   let [similarView, setSimilarView] = React.useState(-1)
+  
   // use the React useEffect hook to fetch the images from the server when the component mounts
   React.useEffect(() => {
     console.log("toto")
