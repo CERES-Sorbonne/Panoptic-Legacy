@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css'
 import {ROOT_URL} from './utils/const'
+import { openElastic } from './utils/utils';
 
 function App() {
   // define a state variable to store the images
@@ -10,7 +11,7 @@ function App() {
   const [sensibility, setSensibility] = React.useState(2);
   const [selectedImage, setSelectedImage] = React.useState(-1)
   let [similarView, setSimilarView] = React.useState(-1)
-  
+
   // use the React useEffect hook to fetch the images from the server when the component mounts
   React.useEffect(() => {
     console.log("toto")
@@ -59,7 +60,8 @@ function App() {
           (<div style={{display: "inline-block"}}>
             <input type="range" min="0.1" max="20" step="0.1" value={sensibility} onChange={(e) => setSensibility(e.target.value)}/>
             <span>{100 - (sensibility * 5)}%</span>
-          </div>)}
+          </div>)
+        }
       </header>
       {clusters.map((images, index) => 
         (<div className="cluster">
@@ -67,6 +69,7 @@ function App() {
             (clusters.length === 1 ? 
             "Toutes les images " : "Cluster " + index) + "(" + images.length + " images )" 
             : "Images similaires à " + similarView + "(" + images.filter(i => i.dist <= sensibility).length + " images )"}</h1>
+            {(images.length <= 500 || images.filter(i => i.dist <= sensibility).length <= 500) && <button style={{marginLeft: "0.5rem"}} onClick={() => openElastic(similarView ? images.filter(i => i.dist <= sensibility) : images)}>View On Dashboard</button>}
           {/* <h1>Cluster {index} ({!similarView ? images.length : images.filter(i => i.dist <= sensibility).length} images)</h1> */}
           <div className="image-mosaic" style={{gridTemplateColumns: css, gridAutoRows: imageSize + "px"}}>
             {images.slice(0, 100 * page).map((image, key) => (
