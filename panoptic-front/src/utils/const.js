@@ -1,2 +1,2 @@
-export const ROOT_URL = "http://localhost:8000"
+export const ROOT_URL = process.env.PANOPTIC_SERVER || "http://localhost:8000"
 export const DASHBOARD_URL = "https://ceres.huma-num.fr/kibana/app/dashboards#/view/052c4230-91b8-11ed-8d3d-cda5f1d55d9d?_a=(query:(language:kuery,query:"
