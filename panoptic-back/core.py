@@ -1,4 +1,4 @@
-import json
+# import json
 import os
 import pickle
 import random
@@ -6,12 +6,12 @@ from operator import itemgetter
 
 import numpy as np
 # need to install tesseract with conda install -c conda-forge tesseract
-import pytesseract
+# import pytesseract
 from sklearn.cluster import DBSCAN
 
 # IMAGE_DIRECTORY = "D:\\Alie\\Documents\\CollectesTwitter\\AhashExps\\allGJ\\SteakAllPictures"
-IMAGE_DIRECTORY = "D:\\Alie\\Documents\\CollectesTwitter\\AhashExps\\grand_remplacement"
-MODELS_DIRECTORY = "D:\\Alie\\Documents\\Projets\\AnalysesImages\\outputs\\vectors"
+IMAGE_DIRECTORY = os.getenv('PANOPTIC_IMAGES', "D:\\Alie\\Documents\\CollectesTwitter\\AhashExps\\grand_remplacement")
+MODELS_DIRECTORY = os.getenv('PANOPTIC_MODELS', "D:\\Alie\\Documents\\Projets\\AnalysesImages\\outputs\\vectors")
 
 with open(os.path.join(MODELS_DIRECTORY, "tree.pkl"), "rb") as f:
     tree = pickle.load(f)
