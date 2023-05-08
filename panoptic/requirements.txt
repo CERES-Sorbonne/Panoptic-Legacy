@@ -1,0 +1,9 @@
+imagehash
+transformers
+pillow
+numpy
+pandas
+pytesseract
+opencv-python
+torch
+scikit-learn
